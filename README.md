@@ -1,4 +1,4 @@
-# VoxelAI - Plataforma Integral de Creación 3D con IA
+# Voxel3D - Plataforma Integral de Creación 3D con IA
 
 Una plataforma completa de generación 3D potenciada por IA, inspirada en Hi3D pero construida desde cero con arquitectura moderna.
 
@@ -146,15 +146,5 @@ GET    /api/v1/projects
 
 ## 📄 Licencia
 
-MIT License - ver [LICENSE](LICENSE) para detalles.
-
-## 🙏 Créditos
-
-- Inspiración de diseño: [Hi3D](https://www.hi3d.ai)
-- Iconos: [Lucide](https://lucide.dev)
-- Animaciones: [Framer Motion](https://www.framer.com/motion/)
-- 3D: [Three.js](https://threejs.org) + [R3F](https://docs.pmnd.rs/react-three-fiber)
-
----
-
+MIT Licens
 Hecho con ❤️ para la comunidad de makers y creadores 3D.
