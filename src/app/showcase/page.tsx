@@ -28,10 +28,10 @@ const showcaseItems = Array.from({ length: 24 }, (_, i) => ({
   category: ['Personajes', 'Articulados', 'Arquitectura', 'Sci-Fi', 'Arte', 'Vehículos', 'Personajes', 'Vehículos', 'Arte', 'Vehículos', 'Arte', 'Personajes', 'Personajes', 'Vehículos', 'Arquitectura', 'Sci-Fi', 'Arte', 'Arquitectura', 'Sci-Fi', 'Arte', 'Sci-Fi', 'Arquitectura', 'Arte', 'Funcionales'][i],
   tags: tags.slice(i % 5, (i % 5) + 3),
   author: ['Marco3D', 'PrintMaster', 'DreamBuilder', 'NeonPrint', 'SculptorAI', 'Engineer3D', 'AnimeFan', 'ClassicCar', 'FantasyForge', 'DronePro', 'GeoArtist', 'OtakuMaker', 'HistoryBuff', 'SpaceCadet', 'ArchitectAI', 'BotBuilder', 'OceanExplorer', 'TimeKeeper', 'CyberPunk', 'PotteryPro', 'MechaFan', 'BridgeBuilder', 'ZenMaster', 'TacticalGear'][i],
-  likes: Math.floor(Math.random() * 1000) + 50,
-  views: (Math.random() * 20 + 1).toFixed(1),
-  downloads: Math.floor(Math.random() * 500) + 10,
-  rating: (Math.random() * 1.5 + 3.5).toFixed(1),
+  likes: [234, 567, 445, 789, 312, 423, 678, 201, 892, 356, 178, 623, 501, 289, 734, 445, 367, 512, 678, 234, 890, 345, 567, 123][i],
+  views: ['5.2', '12.8', '9.1', '18.3', '6.7', '8.9', '14.2', '3.8', '21.5', '7.4', '4.6', '11.9', '10.3', '6.1', '16.7', '9.5', '7.8', '13.4', '15.2', '5.9', '22.1', '8.2', '11.6', '3.4'][i],
+  downloads: [123, 345, 234, 456, 189, 278, 389, 112, 567, 234, 145, 345, 267, 189, 423, 234, 198, 312, 378, 145, 534, 212, 345, 89][i],
+  rating: ['4.2', '4.7', '4.5', '4.9', '4.3', '4.6', '4.8', '3.9', '5.0', '4.4', '4.1', '4.6', '4.5', '4.2', '4.8', '4.4', '4.3', '4.7', '4.9', '4.0', '4.9', '4.3', '4.6', '3.8'][i],
   featured: i < 3,
 }));
 
@@ -42,6 +42,7 @@ export default function ShowcasePage() {
   const [sortBy, setSortBy] = useState('popular');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [loading, setLoading] = useState(false);
+  const [itemsToShow, setItemsToShow] = useState(12);
 
   const filteredItems = showcaseItems.filter(item => {
     const matchesCategory = selectedCategory === 'Todos' || item.category === selectedCategory;
@@ -163,7 +164,7 @@ export default function ShowcasePage() {
                   viewMode === 'grid' ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' : 'space-y-4'
                 )}
               >
-                {sortedItems.map((item, index) => (
+                {sortedItems.slice(0, itemsToShow).map((item, index) => (
                   <motion.article
                     key={item.id}
                     initial={{ opacity: 0, y: 20 }}
@@ -192,8 +193,8 @@ export default function ShowcasePage() {
                 animate={{ opacity: 1 }}
                 className="mt-12 text-center"
               >
-                <Button variant="outline" size="lg" iconLeft={<Loader2 className="w-5 h-5" />} disabled={loading}>
-                  {loading ? 'Cargando más...' : `Cargar más (${sortedItems.length} de ${showcaseItems.length})`}
+                <Button variant="outline" size="lg" iconLeft={<Loader2 className={`w-5 h-5 ${loading ? 'animate-spin' : ''}`} />} disabled={loading || itemsToShow >= sortedItems.length} onClick={() => { setLoading(true); setTimeout(() => { setItemsToShow(prev => prev + 12); setLoading(false); }, 500); }}>
+                  {loading ? 'Cargando más...' : itemsToShow >= sortedItems.length ? 'Todos los modelos cargados' : `Cargar más (${Math.min(itemsToShow, sortedItems.length)} de ${sortedItems.length})`}
                 </Button>
               </motion.div>
             </div>

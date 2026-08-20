@@ -2,10 +2,8 @@
 
 import { motion } from 'framer-motion';
 import { Card, CardContent } from '@/components/ui/Card';
-import { cn } from '@/lib/utils';
 import {
-  Image, Sparkles, Scissors, Palette, Layers, Box, Download, Zap,
-  MousePointer, Wand2, GitBranch, Printer, Truck, Eye, Heart, Share2, Star
+  Image, Sparkles, Scissors, Palette, Layers, Box, Printer, Truck
 } from 'lucide-react';
 
 const features = [
@@ -109,10 +107,6 @@ const features = [
     color: 'rose',
   },
 ];
-
-const featureIcons = {
-  Box, Image, Sparkles, Palette, Scissors, Layers, Download, Printer, Truck,
-};
 
 export function Features() {
   return (

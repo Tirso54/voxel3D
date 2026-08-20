@@ -8,6 +8,7 @@ import {
   Download, Box, Zap, AlertTriangle, CheckCircle, Info
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
+import { creationModes } from './CreationModes';
 
 interface SliderConfig {
   key: string;
@@ -205,7 +206,6 @@ export function Editor3D({
 
 function SliderControl({ config, value, onChange }: { config: SliderConfig; value: number; onChange: (v: number) => void }) {
   const [localValue, setLocalValue] = useState(value);
-  const [isDragging, setIsDragging] = useState(false);
 
   useEffect(() => {
     setLocalValue(value);
@@ -244,7 +244,6 @@ function SliderControl({ config, value, onChange }: { config: SliderConfig; valu
           step={config.step}
           value={localValue}
           onChange={handleChange}
-          onMouseDown={() => setIsDragging(true)}
           onMouseUp={handleBlur}
           onTouchEnd={handleBlur}
           className="w-full h-2 appearance-none bg-transparent cursor-pointer"
@@ -449,6 +448,3 @@ function GenerationActions({
     </div>
   );
 }
-
-// Import creationModes for reset defaults
-import { creationModes } from './CreationModes';

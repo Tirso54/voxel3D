@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import {
   Box, Sparkles, Crown, LayoutDashboard, Globe, Twitter, Github, MessageCircle, Youtube,
-  Mail, Heart, Sun, Moon, ArrowRight
+  Heart, Sun, Moon
 } from 'lucide-react';
 import { useTheme } from 'next-themes';
 
@@ -46,7 +46,7 @@ const footerLinks = {
 const socialLinks = [
   { label: 'Twitter', href: 'https://twitter.com/voxel3d', icon: Twitter },
   { label: 'GitHub', href: 'https://github.com/voxel3d', icon: Github },
-  { label: 'Discord', href: 'https://discord.gg/voxelai', icon: MessageCircle },
+  { label: 'Discord', href: 'https://discord.gg/voxel3d', icon: MessageCircle },
   { label: 'YouTube', href: 'https://youtube.com/@voxel3d', icon: Youtube },
 ];
 
@@ -64,14 +64,23 @@ export function Footer() {
               <div className="relative w-10 h-10">
                 <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
                   <defs>
-                    <linearGradient id="footerLogoGradient" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+                    <linearGradient id="footerLogoGrad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stopColor="hsl(var(--primary))"/>
+                      <stop offset="100%" stopColor="hsl(var(--accent))"/>
+                    </linearGradient>
+                    <linearGradient id="footerLogoGrad2" x1="16" y1="2" x2="16" y2="30" gradientUnits="userSpaceOnUse">
                       <stop offset="0%" stopColor="hsl(var(--primary))"/>
                       <stop offset="100%" stopColor="hsl(var(--accent))"/>
                     </linearGradient>
                   </defs>
-                  <path d="M4 28V12L16 4L28 12V28L16 20L4 28Z" stroke="url(#footerLogoGradient)" strokeWidth="2.5" strokeLinejoin="round"/>
-                  <path d="M16 4V20" stroke="url(#footerLogoGradient)" strokeWidth="2.5" strokeLinecap="round"/>
-                  <path d="M8 20L16 28L24 20" stroke="url(#footerLogoGradient)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M16 2L29 9.5V22.5L16 30L3 22.5V9.5L16 2Z" fill="url(#footerLogoGrad)" opacity="0.15"/>
+                  <path d="M16 2L29 9.5V22.5L16 30L3 22.5V9.5L16 2Z" stroke="url(#footerLogoGrad)" strokeWidth="1.8" strokeLinejoin="round"/>
+                  <path d="M16 2V16L29 9.5" stroke="url(#footerLogoGrad)" strokeWidth="1.8" strokeLinejoin="round"/>
+                  <path d="M16 16L3 9.5" stroke="url(#footerLogoGrad2)" strokeWidth="1.8" strokeLinecap="round"/>
+                  <path d="M16 16V30" stroke="url(#footerLogoGrad2)" strokeWidth="1.8" strokeLinecap="round"/>
+                  <path d="M16 16L29 22.5" stroke="url(#footerLogoGrad2)" strokeWidth="1.8" strokeLinecap="round"/>
+                  <path d="M16 16L3 22.5" stroke="url(#footerLogoGrad2)" strokeWidth="1.8" strokeLinecap="round"/>
+                  <circle cx="16" cy="16" r="3" fill="url(#footerLogoGrad)" opacity="0.8"/>
                 </svg>
               </div>
               <span className="font-display font-bold text-xl text-foreground">Voxel3D</span>
@@ -170,7 +179,7 @@ export function Footer() {
             <div className="flex items-center gap-4">
               <select
                 defaultValue="es"
-                onChange={(e) => setTheme(e.target.value)}
+                onChange={() => {}}
                 className="px-3 py-2 rounded-xl bg-muted border border-border text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 aria-label="Idioma"
               >

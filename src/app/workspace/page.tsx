@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import toast from 'react-hot-toast';
 import { Header } from '@/components/ui/Header';
 import { Footer } from '@/components/sections/Footer';
 import { Button } from '@/components/ui/Button';
@@ -74,30 +75,68 @@ export default function WorkspacePage() {
     
     const delays = quality === 'preview' ? [400, 500, 600, 500, 400, 300] : [600, 800, 1000, 1200, 1000, 800, 600, 400, 200];
 
-    for (let i = 0; i < stages.length; i++) {
-      await new Promise(r => setTimeout(r, delays[i]));
-      setGenerationProgress(stages[i]);
-    }
+    // Simulate progress while API call runs in background
+    const progressPromise = (async () => {
+      for (let i = 0; i < stages.length; i++) {
+        await new Promise(r => setTimeout(r, delays[i]));
+        setGenerationProgress(stages[i]);
+      }
+    })();
 
-    setIsGenerating(false);
-    setGenerationProgress(100);
+    try {
+      const imageBase64 = await new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result as string);
+        reader.onerror = reject;
+        reader.readAsDataURL(currentImage.file);
+      });
 
-    if (quality === 'preview') {
-      setPreviewUrl('/models/preview-' + activeMode + '.glb');
-      setModelDimensions({ x: 80, y: 80, z: 3 });
-      setModelErrors([
-        { type: 'thin_wall', severity: 'warning', message: 'Algunas zonas < 0.4mm en el relieve' },
-        { type: 'overhang', severity: 'info', message: 'Áreas con > 45° requieren soportes' },
-      ]);
-    } else {
-      setModelUrl('/models/final-' + activeMode + '.stl');
-      setPreviewUrl(undefined);
-      setModelDimensions({ x: 80, y: 80, z: 3 });
-      setModelErrors([
-        { type: 'thin_wall', severity: 'warning', message: 'Base en 2 zonas < 0.4mm' },
-      ]);
+      const res = await fetch('/api/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          imageUrl: imageBase64,
+          mode: activeMode,
+          settings,
+        }),
+      });
+
+      const data = await res.json();
+
+      await progressPromise;
+
+      if (!res.ok) {
+        throw new Error(data.error || 'Error al generar el modelo');
+      }
+
+      setGenerationProgress(100);
+
+      if (quality === 'preview') {
+        setPreviewUrl(data.previewUrl);
+        setModelDimensions(data.dimensions || { x: 80, y: 80, z: 3 });
+        setModelErrors([
+          { type: 'thin_wall', severity: 'warning', message: 'Algunas zonas < 0.4mm en el relieve' },
+          { type: 'overhang', severity: 'info', message: 'Áreas con > 45° requieren soportes' },
+        ]);
+      } else {
+        setModelUrl(data.modelUrl);
+        setPreviewUrl(undefined);
+        setModelDimensions(data.dimensions || { x: 80, y: 80, z: 3 });
+        setModelErrors([
+          { type: 'thin_wall', severity: 'warning', message: 'Base en 2 zonas < 0.4mm' },
+        ]);
+      }
+
+      toast.success('Modelo generado correctamente');
+    } catch (err) {
+      await progressPromise;
+      const message = err instanceof Error ? err.message : 'Error al generar el modelo';
+      toast.error(message);
+      setGenerationProgress(0);
+    } finally {
+      setIsGenerating(false);
     }
-  }, [currentImage, activeMode, isGenerating]);
+  }, [currentImage, activeMode, isGenerating, settings]);
 
   const handleImageSelect = useCallback((file: File, preview: string) => {
     setCurrentImage({ file, preview });

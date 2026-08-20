@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
@@ -85,6 +86,8 @@ const plans = [
 const billingIntervals = ['monthly', 'yearly'] as const;
 
 export function Pricing() {
+  const [billingInterval, setBillingInterval] = useState<'monthly' | 'yearly'>('yearly');
+
   return (
     <section className="section bg-muted/30 relative" aria-labelledby="pricing-heading">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/3 via-transparent to-accent/3" />
@@ -111,9 +114,10 @@ export function Pricing() {
             {billingIntervals.map((interval) => (
               <button
                 key={interval}
+                onClick={() => setBillingInterval(interval)}
                 className={cn(
                   'px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200',
-                  interval === 'yearly'
+                  interval === billingInterval
                     ? 'bg-primary text-primary-foreground shadow-voxel-sm'
                     : 'text-muted-foreground hover:text-foreground'
                 )}
@@ -134,7 +138,7 @@ export function Pricing() {
               viewport={{ once: true, margin: '-50px' }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <PricingCard plan={plan} />
+              <PricingCard plan={plan} isYearly={billingInterval === 'yearly'} />
             </motion.div>
           ))}
         </div>
@@ -154,8 +158,7 @@ export function Pricing() {
   );
 }
 
-function PricingCard({ plan }: { plan: typeof plans[0] }) {
-  const isYearly = true; // Default to yearly for display
+function PricingCard({ plan, isYearly }: { plan: typeof plans[0]; isYearly: boolean }) {
 
   return (
     <Card

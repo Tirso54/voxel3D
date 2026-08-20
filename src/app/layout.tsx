@@ -24,37 +24,43 @@ const jetbrainsMono = JetBrains_Mono({
   preload: true,
 });
 
+const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://voxel3d-tirso1.vercel.app';
+
 export const metadata: Metadata = {
+  metadataBase: new URL(baseUrl),
   title: {
-    default: 'Voxel3D - Plataforma Integral de Creación 3D con IA',
+    default: 'Voxel3D - Creación de Modelos 3D con Inteligencia Artificial',
     template: '%s | Voxel3D',
   },
-  description: 'Convierte cualquier idea en modelos 3D listos para producción. Texto a 3D, Imagen a 3D, Texturas, División para impresión, Multicolor y más. Potenciado por IA de vanguardia.',
-  keywords: ['3D', 'IA', 'generador 3D', 'texto a 3D', 'imagen a 3D', 'impresión 3D', 'modelado 3D', 'IA generativa'],
+  description: 'Transforma texto e imágenes en modelos 3D listos para producción con IA avanzada. Genera texturas, divide para impresión 3D, exporta multicolor y más. Herramientas profesionales de modelado 3D asistido por inteligencia artificial.',
+  keywords: ['3D', 'IA', 'generador 3D', 'texto a 3D', 'imagen a 3D', 'impresión 3D', 'modelado 3D', 'IA generativa', 'modelos 3D', 'texturas 3D', 'blender 3D', 'three.js'],
   authors: [{ name: 'Voxel3D' }],
   creator: 'Voxel3D',
   publisher: 'Voxel3D',
   robots: 'index, follow',
+  alternates: {
+    canonical: baseUrl,
+  },
   openGraph: {
     type: 'website',
     locale: 'es_ES',
-    url: 'https://voxel3d.com',
+    url: baseUrl,
     siteName: 'Voxel3D',
-    title: 'Voxel3D - Plataforma Integral de Creación 3D con IA',
-    description: 'Convierte cualquier idea en modelos 3D listos para producción.',
+    title: 'Voxel3D - Creación de Modelos 3D con Inteligencia Artificial',
+    description: 'Transforma texto e imágenes en modelos 3D listos para producción con IA avanzada.',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Voxel3D - Creación 3D con IA',
+        alt: 'Voxel3D - Plataforma de creación 3D con inteligencia artificial',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Voxel3D - Plataforma Integral de Creación 3D con IA',
-    description: 'Convierte cualquier idea en modelos 3D listos para producción.',
+    title: 'Voxel3D - Creación de Modelos 3D con Inteligencia Artificial',
+    description: 'Transforma texto e imágenes en modelos 3D listos para producción con IA avanzada.',
     images: ['/og-image.png'],
     creator: '@voxel3d',
   },

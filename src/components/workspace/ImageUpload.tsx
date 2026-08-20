@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import {
@@ -87,10 +87,12 @@ export function ImageUpload({
     onRemove();
   }, [preview, onRemove]);
 
-  if (currentImage && !preview) {
-    setPreview(currentImage.preview);
-    setFile(currentImage.file);
-  }
+  useEffect(() => {
+    if (currentImage && !preview) {
+      setPreview(currentImage.preview);
+      setFile(currentImage.file);
+    }
+  }, [currentImage, preview]);
 
   return (
     <div className={cn('relative', className)}>
@@ -161,7 +163,7 @@ export function ImageUpload({
         )}
 
         {(currentImage || preview) && (
-          <div className="relative aspect-square rounded-2xl overflow-hidden">
+          <div className="relative aspect-square rounded-2xl overflow-hidden group">
             <img
               src={preview!}
               alt="Vista previa"

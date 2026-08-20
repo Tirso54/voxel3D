@@ -3,11 +3,9 @@
 import { motion } from 'framer-motion';
 import { Card, CardContent } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
-import { cn } from '@/lib/utils';
 import {
-  Image, Sparkles, Scissors, Palette, Layers, Box, Download,
-  Printer, Truck, Eye, Heart, Share2, Star, ArrowRight, Play, Zap,
-  MousePointer, Wand2, GitBranch, CheckCircle
+  Sparkles, Palette, Layers, Box,
+  Eye, Heart, Share2, Star, ArrowRight, MousePointer, Printer
 } from 'lucide-react';
 
 const workflowSteps = [

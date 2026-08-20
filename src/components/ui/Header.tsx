@@ -53,14 +53,41 @@ export function Header() {
           <div className="relative w-8 h-8">
             <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
               <defs>
-                <linearGradient id="logoGradient" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+                <linearGradient id="voxelTop" x1="8" y1="2" x2="24" y2="14" gradientUnits="userSpaceOnUse">
                   <stop offset="0%" stopColor="hsl(var(--primary))"/>
                   <stop offset="100%" stopColor="hsl(var(--accent))"/>
                 </linearGradient>
+                <linearGradient id="voxelLeft" x1="4" y1="12" x2="16" y2="28" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0.85"/>
+                  <stop offset="100%" stopColor="hsl(var(--accent))" stopOpacity="0.7"/>
+                </linearGradient>
+                <linearGradient id="voxelRight" x1="16" y1="14" x2="28" y2="28" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0.65"/>
+                  <stop offset="100%" stopColor="hsl(var(--accent))" stopOpacity="0.5"/>
+                </linearGradient>
+                <filter id="voxelGlow" x="-2" y="-2" width="36" height="36">
+                  <feGaussianBlur in="SourceGraphic" stdDeviation="1.5" result="blur"/>
+                  <feMerge>
+                    <feMergeNode in="blur"/>
+                    <feMergeNode in="SourceGraphic"/>
+                  </feMerge>
+                </filter>
               </defs>
-              <path d="M4 28V12L16 4L28 12V28L16 20L4 28Z" stroke="url(#logoGradient)" strokeWidth="2.5" strokeLinejoin="round"/>
-              <path d="M16 4V20" stroke="url(#logoGradient)" strokeWidth="2.5" strokeLinecap="round"/>
-              <path d="M8 20L16 28L24 20" stroke="url(#logoGradient)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+              {/* Top face - brightest */}
+              <path d="M16 3L28 10L16 17L4 10L16 3Z" fill="url(#voxelTop)" filter="url(#voxelGlow)"/>
+              {/* Left face - medium shade */}
+              <path d="M4 10L16 17L16 29L4 22L4 10Z" fill="url(#voxelLeft)"/>
+              {/* Right face - darkest shade */}
+              <path d="M28 10L16 17L16 29L28 22L28 10Z" fill="url(#voxelRight)"/>
+              {/* Edge highlights */}
+              <path d="M16 3L28 10L16 17L4 10L16 3Z" stroke="hsl(var(--primary))" strokeWidth="0.8" strokeLinejoin="round" fill="none" opacity="0.6"/>
+              <path d="M4 10L16 17" stroke="hsl(var(--primary))" strokeWidth="0.8" opacity="0.4"/>
+              <path d="M28 10L16 17" stroke="hsl(var(--accent))" strokeWidth="0.8" opacity="0.4"/>
+              <path d="M16 17V29" stroke="hsl(var(--primary))" strokeWidth="0.8" opacity="0.3"/>
+              <path d="M4 22L16 29L28 22" stroke="hsl(var(--primary))" strokeWidth="0.6" opacity="0.25"/>
+              {/* Inner voxel detail lines */}
+              <path d="M10 7.5L16 11L22 7.5" stroke="hsl(var(--accent))" strokeWidth="0.5" fill="none" opacity="0.4"/>
+              <path d="M10 14.5L16 11L22 14.5" stroke="hsl(var(--primary))" strokeWidth="0.5" fill="none" opacity="0.3"/>
             </svg>
           </div>
           <span className="font-display font-bold text-xl text-foreground">Voxel3D</span>

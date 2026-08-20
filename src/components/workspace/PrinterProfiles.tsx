@@ -1,11 +1,10 @@
 'use client';
 
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import {
-  Printer, Check, ChevronDown, ChevronUp, Maximize, Minimize,
-  Box, Cpu, Zap, Shield, AlertTriangle, Info, ExternalLink,
-  Wifi, Usb, HardDrive, Bluetooth
+  Printer, Check, ChevronDown, ChevronUp, Box, Zap, Info
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 
@@ -213,7 +212,7 @@ export function PrinterProfiles({ selectedPrinter, onSelect, modelDimensions, cl
           <Button variant="ghost" size="sm" onClick={() => setShowAll(!showAll)}>
             {showAll ? 'Menos' : 'Todos'} ({printerProfiles.length})
           </Button>
-          <Button variant="ghost" size="sm" onClick={() => setExpanded(!expanded)} iconLeft={expanded ? <Minimize className="w-4 h-4" /> : <Maximize className="w-4 h-4" />} />
+          <Button variant="ghost" size="sm" onClick={() => setExpanded(!expanded)} iconLeft={expanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />} />
         </div>
       </div>
 
@@ -377,5 +376,3 @@ function PrinterSearch() {
 function checkFit(model: { x: number; y: number; z: number }, printer: PrinterProfile): boolean {
   return model.x <= printer.buildVolume.x && model.y <= printer.buildVolume.y && model.z <= printer.buildVolume.z;
 }
-
-import { useState } from 'react';
