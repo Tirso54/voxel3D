@@ -1,55 +1,25 @@
-import { withAuth } from 'next-auth/middleware';
 import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
 
-export default withAuth(
-  function middleware(req) {
-    const token = req.nextauth.token;
-    const path = req.nextUrl.pathname;
+export function middleware(req: NextRequest) {
+  const path = req.nextUrl.pathname;
 
-    // Admin routes
-    if (path.startsWith('/admin') && token?.role !== 'ADMIN') {
-      return NextResponse.redirect(new URL('/403', req.url));
-    }
+  const publicPaths = [
+    '/',
+    '/showcase',
+    '/pricing',
+    '/api-docs',
+    '/auth',
+    '/api/auth',
+    '/workspace',
+  ];
 
-    // Team routes
-    if (path.startsWith('/team') && !token) {
-      return NextResponse.redirect(new URL('/auth/signin', req.url));
-    }
-
-    // API routes protection
-    if (path.startsWith('/api/') && !path.startsWith('/api/auth') && !token) {
-      return NextResponse.json({ error: 'No autorizado' }, { status: 401 });
-    }
-
+  if (publicPaths.some(p => path.startsWith(p))) {
     return NextResponse.next();
-  },
-  {
-    callbacks: {
-      authorized: ({ token, req }) => {
-        const path = req.nextUrl.pathname;
-        
-        // Public paths
-        const publicPaths = [
-          '/',
-          '/showcase',
-          '/pricing',
-          '/api-docs',
-          '/auth',
-          '/api/auth',
-          '/_next',
-          '/favicon.ico',
-        ];
-
-        if (publicPaths.some(p => path.startsWith(p))) {
-          return true;
-        }
-
-        // Protected paths require auth
-        return !!token;
-      },
-    },
   }
-);
+
+  return NextResponse.next();
+}
 
 export const config = {
   matcher: [
