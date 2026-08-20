@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { cn } from '@/lib/utils';
-import { Check, X, Sparkles, Cube, Image, Palette, Scissors, Printer, Truck, Zap, Crown, Infinity, Lock, Unlock, ArrowRight } from 'lucide-react';
+import { Check, X, Sparkles, Box, Image, Palette, Scissors, Printer, Truck, Zap, Crown, Infinity, Lock, Unlock, ArrowRight } from 'lucide-react';
 
 const plans = [
   {
@@ -227,7 +227,7 @@ function PricingCard({ plan }: { plan: typeof plans[0] }) {
 export function Testimonials() {
   const testimonials = [
     {
-      quote: "VoxelAI cambió completamente mi flujo de trabajo. De concepto a modelo imprimible en minutos, no horas. La calidad 2048³ es increíble.",
+      quote: "Voxel3D cambió completamente mi flujo de trabajo. De concepto a modelo imprimible en minutos, no horas. La calidad 2048³ es increíble.",
       author: "Sarah Chen",
       role: "Diseñadora Industrial",
       company: "Formlabs",

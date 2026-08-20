@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
 import {
-  Cube, Code, Terminal, Key, Shield, Globe, Zap, BookOpen,
+  Box, Code, Terminal, Key, Shield, Globe, Zap, BookOpen,
   Copy, Check, ExternalLink, ChevronRight, Moon, Sun,
   FileCode, Server, Database, Users, Activity
 } from 'lucide-react';
@@ -62,7 +62,7 @@ const endpoints = [
 ];
 
 const codeExamples = {
-  javascript: `const response = await fetch('https://api.voxelai.com/api/v1/3d/text-to-3d', {
+  javascript: `const response = await fetch('https://api.voxel3d.com/api/v1/3d/text-to-3d', {
   method: 'POST',
   headers: {
     'Authorization': 'Bearer YOUR_API_KEY',
@@ -94,7 +94,7 @@ payload = {
 }
 
 response = requests.post(
-    'https://api.voxelai.com/api/v1/3d/text-to-3d',
+    'https://api.voxel3d.com/api/v1/3d/text-to-3d',
     headers=headers,
     json=payload
 )
@@ -102,7 +102,7 @@ response = requests.post(
 data = response.json()
 print(f"Model ID: {data['model_id']}")
 print(f"Status: {data['status']}")`,
-  curl: `curl -X POST https://api.voxelai.com/api/v1/3d/text-to-3d \\
+  curl: `curl -X POST https://api.voxel3d.com/api/v1/3d/text-to-3d \\
   -H "Authorization: Bearer YOUR_API_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{
@@ -135,7 +135,7 @@ export default function APIDocsPage() {
                 API <span className="gradient-text">Referencia Completa</span>
               </h1>
               <p className="text-body-lg text-muted-foreground">
-                Integra VoxelAI en tus aplicaciones. RESTful, WebSockets, SDKs oficiales y más.
+                Integra Voxel3D en tus aplicaciones. RESTful, WebSockets, SDKs oficiales y más.
               </p>
             </motion.div>
 
@@ -179,21 +179,21 @@ export default function APIDocsPage() {
                         <FileCode className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
                         <div>
                           <p className="font-medium text-sm">JavaScript / TypeScript</p>
-                          <p className="text-xs text-muted-foreground">npm i @voxelai/sdk</p>
+                          <p className="text-xs text-muted-foreground">npm i @voxel3d/sdk</p>
                         </div>
                       </a>
                       <a href="#" className="flex items-center gap-3 p-3 rounded-xl bg-muted/50 hover:bg-muted transition-colors group">
                         <Terminal className="w-5 h-5 text-green-500 group-hover:scale-110 transition-transform" />
                         <div>
                           <p className="font-medium text-sm">Python</p>
-                          <p className="text-xs text-muted-foreground">pip install voxelai</p>
+                          <p className="text-xs text-muted-foreground">pip install voxel3d</p>
                         </div>
                       </a>
                       <a href="#" className="flex items-center gap-3 p-3 rounded-xl bg-muted/50 hover:bg-muted transition-colors group">
                         <Server className="w-5 h-5 text-orange-500 group-hover:scale-110 transition-transform" />
                         <div>
                           <p className="font-medium text-sm">Go</p>
-                          <p className="text-xs text-muted-foreground">go get github.com/voxelai/go-sdk</p>
+                          <p className="text-xs text-muted-foreground">go get github.com/voxel3d/go-sdk</p>
                         </div>
                       </a>
                     </CardContent>
@@ -318,8 +318,8 @@ export default function APIDocsPage() {
                         model_id: "mdl_abc123def456",
                         status: "processing",
                         estimated_time: 35,
-                        progress_url: "https://api.voxelai.com/api/v1/3d/models/mdl_abc123def456",
-                        download_url: "https://api.voxelai.com/api/v1/3d/models/mdl_abc123def456/download",
+                        progress_url: "https://api.voxel3d.com/api/v1/3d/models/mdl_abc123def456",
+                        download_url: "https://api.voxel3d.com/api/v1/3d/models/mdl_abc123def456/download",
                         metadata: {
                           vertices: 245832,
                           faces: 489124,

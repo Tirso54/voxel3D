@@ -5,7 +5,7 @@ import { Card, CardContent } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { cn } from '@/lib/utils';
 import {
-  Cube, Image, Sparkles, Scissors, Palette, Layers, Box, Download,
+  Image, Sparkles, Scissors, Palette, Layers, Box, Download,
   Printer, Truck, Eye, Heart, Share2, Star, ArrowRight, Play, Zap,
   MousePointer, Wand2, GitBranch, CheckCircle
 } from 'lucide-react';
@@ -23,7 +23,7 @@ const workflowSteps = [
     id: 2,
     title: 'Genera 3D',
     description: 'IA crea modelo 3D con geometría precisa y detalles nítidos',
-    icon: Cube,
+    icon: Box,
     tools: ['Texto a 3D', 'Imagen a 3D', 'Relieve 3D'],
     color: 'from-purple-500 to-pink-500',
   },

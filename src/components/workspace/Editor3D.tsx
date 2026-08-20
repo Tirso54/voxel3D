@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import {
   Sliders, Minimize, Maximize, Reset, Eye, EyeOff,
-  Download, Cube, Zap, AlertTriangle, CheckCircle, Info
+  Download, Box, Zap, AlertTriangle, CheckCircle, Info
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 
@@ -312,22 +312,25 @@ function ErrorPanel({ errors, onDismiss }: { errors: ModelError[]; onDismiss: ()
         </Button>
       </div>
       <div className="space-y-2 max-h-48 overflow-y-auto">
-        {errors.map((error, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: i * 0.05 }}
-            className={cn('flex items-start gap-3 p-3 rounded-lg border', severityColors[error.severity])}
-          >
-            <severityIcons[error.severity] className="w-5 h-5 flex-shrink-0 mt-0.5" />
-            <div className="flex-1">
-              <p className="font-medium text-sm">{error.message}</p>
-              {error.location && <p className="text-[11px] text-muted-foreground mt-0.5">Ubicación: {error.location}</p>}
-            </div>
-            <span className="badge text-xs px-2 py-0.5 capitalize">{error.severity}</span>
-          </motion.div>
-        ))}
+        {errors.map((error, i) => {
+          const ErrorIcon = severityIcons[error.severity];
+          return (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: i * 0.05 }}
+              className={cn('flex items-start gap-3 p-3 rounded-lg border', severityColors[error.severity])}
+            >
+              <ErrorIcon className="w-5 h-5 flex-shrink-0 mt-0.5" />
+              <div className="flex-1">
+                <p className="font-medium text-sm">{error.message}</p>
+                {error.location && <p className="text-[11px] text-muted-foreground mt-0.5">Ubicación: {error.location}</p>}
+              </div>
+              <span className="badge text-xs px-2 py-0.5 capitalize">{error.severity}</span>
+            </motion.div>
+          );
+        })}
       </div>
     </motion.div>
   );
@@ -395,7 +398,7 @@ function GenerationActions({
               >
                 Generar alta calidad
               </Button>
-              <Button variant="outline" size="lg" iconLeft={<Cube className="w-5 h-5" }>Descargar STL</Button>
+              <Button variant="outline" size="lg" iconLeft={<Box className="w-5 h-5" />}>Descargar STL</Button>
             </div>
           </motion.div>
         ) : modelUrl ? (
@@ -406,15 +409,15 @@ function GenerationActions({
             className="space-y-3"
           >
             <div className="flex items-center gap-3 p-3 rounded-xl bg-primary/10 border border-primary/20">
-              <Cube className="w-6 h-6 text-primary" />
+              <Box className="w-6 h-6 text-primary" />
               <div className="flex-1">
                 <p className="font-medium text-foreground">¡Modelo completado!</p>
                 <p className="text-sm text-muted-foreground">Listo para imprimir en tu impresora</p>
               </div>
             </div>
             <div className="flex gap-2">
-              <Button size="lg" className="flex-1 gap-2" iconLeft={<Download className="w-5 h-5" }>Descargar STL</Button>
-              <Button variant="outline" size="lg" iconLeft={<Zap className="w-5 h-5" }>Nueva generación</Button>
+              <Button size="lg" className="flex-1 gap-2" iconLeft={<Download className="w-5 h-5" />}>Descargar STL</Button>
+              <Button variant="outline" size="lg" iconLeft={<Zap className="w-5 h-5" />}>Nueva generación</Button>
             </div>
           </motion.div>
         ) : (
@@ -435,7 +438,7 @@ function GenerationActions({
             <Button
               size="lg"
               className="flex-1 gap-2"
-              iconLeft={<Cube className="w-5 h-5" />}
+              iconLeft={<Box className="w-5 h-5" />}
               onClick={() => onGenerate('high')}
             >
               Alta calidad (~30s)

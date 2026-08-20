@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/Button';
-import { Sparkles, ArrowRight, Cube, Zap, CheckCircle } from 'lucide-react';
+import { Sparkles, ArrowRight, Box, Zap, CheckCircle } from 'lucide-react';
 
 export function CTA() {
   return (
@@ -56,7 +56,7 @@ export function CTA() {
               <Sparkles className="w-5 h-5" />
               Crear mi Primer Modelo
             </Button>
-            <Button variant="outline" size="xl" iconRight={<Cube className="w-5 h-5" />} className="gap-3 min-w-[280px]">
+            <Button variant="outline" size="xl" iconRight={<Box className="w-5 h-5" />} className="gap-3 min-w-[280px]">
               Explorar el Taller
             </Button>
           </motion.div>
@@ -92,7 +92,7 @@ export function CTA() {
               <span><strong>30s</strong> promedio por generación</span>
             </div>
             <div className="flex items-center gap-2 text-muted-foreground">
-              <Cube className="w-4 h-4 text-primary" />
+              <Box className="w-4 h-4 text-primary" />
               <span><strong>2048³</strong> resolución máxima</span>
             </div>
             <div className="flex items-center gap-2 text-muted-foreground">

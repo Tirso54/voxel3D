@@ -40,8 +40,8 @@ Una plataforma completa de generación 3D potenciada por IA, inspirada en Hi3D p
 
 ```bash
 # Clonar repositorio
-git clone https://github.com/tu-usuario/voxelai.git
-cd voxelai
+git clone https://github.com/tu-usuario/voxel3d.git
+cd voxel3d
 
 # Instalar dependencias
 npm install

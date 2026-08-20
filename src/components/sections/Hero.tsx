@@ -1,12 +1,12 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowRight, Sparkles, Cube, Zap, Download, CheckCircle, ExternalLink } from 'lucide-react';
+import { ArrowRight, Sparkles, Box, Zap, Download, CheckCircle, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { cn } from '@/lib/utils';
 
 const features = [
-  { icon: Cube, title: 'Texto a 3D', desc: 'Genera modelos 3D completos desde descripciones en lenguaje natural', highlight: 'v3.0' },
+  { icon: Box, title: 'Texto a 3D', desc: 'Genera modelos 3D completos desde descripciones en lenguaje natural', highlight: 'v3.0' },
   { icon: Sparkles, title: 'Imagen a 3D', desc: 'Convierte una sola imagen en modelo 3D de alta fidelidad con geometría inteligente', highlight: '2048³' },
   { icon: Zap, title: 'Texturas PBR 8K', desc: 'Materiales listos para producción con mapas de roughness, metalness, normal y AO', highlight: '8K' },
   { icon: Download, title: 'División Inteligente', desc: 'Separa modelos complejos con conectores automáticos para impresión y ensamblaje fácil', highlight: 'Auto' },
@@ -37,7 +37,7 @@ export function Hero() {
               <span className="animate-ping absolute inset-0 h-full w-full rounded-full bg-primary opacity-75" />
               <span className="relative h-full w-full rounded-full bg-primary" />
             </span>
-            <span>Nuevo: VoxelAI v3.0 - Resolución 2048³, Texturas 8K PBR, Listo para Producción</span>
+            <span>Nuevo: Voxel3D v3.0 - Resolución 2048³, Texturas 8K PBR, Listo para Producción</span>
           </motion.div>
 
           <motion.h1
@@ -174,7 +174,7 @@ function ModelShowcase() {
       </div>
 
       <div className="grid grid-cols-3 gap-4 text-center">
-        <StatCard value="2048³" label="Resolución Máxima" icon="Cube" />
+        <StatCard value="2048³" label="Resolución Máxima" icon="Box" />
         <StatCard value="8K" label="Texturas PBR" icon="Sparkles" />
         <StatCard value="<30s" label="Tiempo Promedio" icon="Zap" />
       </div>

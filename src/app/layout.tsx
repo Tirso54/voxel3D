@@ -25,37 +25,37 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: 'VoxelAI - Plataforma Integral de Creación 3D con IA',
-    template: '%s | VoxelAI',
+    default: 'Voxel3D - Plataforma Integral de Creación 3D con IA',
+    template: '%s | Voxel3D',
   },
   description: 'Convierte cualquier idea en modelos 3D listos para producción. Texto a 3D, Imagen a 3D, Texturas, División para impresión, Multicolor y más. Potenciado por IA de vanguardia.',
   keywords: ['3D', 'IA', 'generador 3D', 'texto a 3D', 'imagen a 3D', 'impresión 3D', 'modelado 3D', 'IA generativa'],
-  authors: [{ name: 'VoxelAI' }],
-  creator: 'VoxelAI',
-  publisher: 'VoxelAI',
+  authors: [{ name: 'Voxel3D' }],
+  creator: 'Voxel3D',
+  publisher: 'Voxel3D',
   robots: 'index, follow',
   openGraph: {
     type: 'website',
     locale: 'es_ES',
-    url: 'https://voxelai.com',
-    siteName: 'VoxelAI',
-    title: 'VoxelAI - Plataforma Integral de Creación 3D con IA',
+    url: 'https://voxel3d.com',
+    siteName: 'Voxel3D',
+    title: 'Voxel3D - Plataforma Integral de Creación 3D con IA',
     description: 'Convierte cualquier idea en modelos 3D listos para producción.',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'VoxelAI - Creación 3D con IA',
+        alt: 'Voxel3D - Creación 3D con IA',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'VoxelAI - Plataforma Integral de Creación 3D con IA',
+    title: 'Voxel3D - Plataforma Integral de Creación 3D con IA',
     description: 'Convierte cualquier idea en modelos 3D listos para producción.',
     images: ['/og-image.png'],
-    creator: '@voxelai',
+    creator: '@voxel3d',
   },
   verification: {
     google: 'google-site-verification-code',

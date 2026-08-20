@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import {
-  Cube, Box, Sparkles, Crown, LayoutDashboard, Globe, Twitter, Github, Discord, Youtube,
+  Box, Sparkles, Crown, LayoutDashboard, Globe, Twitter, Github, MessageCircle, Youtube,
   Mail, Heart, Sun, Moon, ArrowRight
 } from 'lucide-react';
 import { useTheme } from 'next-themes';
@@ -44,10 +44,10 @@ const footerLinks = {
 };
 
 const socialLinks = [
-  { label: 'Twitter', href: 'https://twitter.com/voxelai', icon: Twitter },
-  { label: 'GitHub', href: 'https://github.com/voxelai', icon: Github },
-  { label: 'Discord', href: 'https://discord.gg/voxelai', icon: Discord },
-  { label: 'YouTube', href: 'https://youtube.com/@voxelai', icon: Youtube },
+  { label: 'Twitter', href: 'https://twitter.com/voxel3d', icon: Twitter },
+  { label: 'GitHub', href: 'https://github.com/voxel3d', icon: Github },
+  { label: 'Discord', href: 'https://discord.gg/voxelai', icon: MessageCircle },
+  { label: 'YouTube', href: 'https://youtube.com/@voxel3d', icon: Youtube },
 ];
 
 export function Footer() {
@@ -60,7 +60,7 @@ export function Footer() {
       <div className="container-voxel relative py-16 lg:py-24">
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 lg:gap-12 mb-16">
           <div className="col-span-2 lg:col-span-2">
-            <Link href="/" className="flex items-center gap-2 mb-6" aria-label="VoxelAI Inicio">
+            <Link href="/" className="flex items-center gap-2 mb-6" aria-label="Voxel3D Inicio">
               <div className="relative w-10 h-10">
                 <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
                   <defs>
@@ -74,7 +74,7 @@ export function Footer() {
                   <path d="M8 20L16 28L24 20" stroke="url(#footerLogoGradient)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </div>
-              <span className="font-display font-bold text-xl text-foreground">VoxelAI</span>
+              <span className="font-display font-bold text-xl text-foreground">Voxel3D</span>
             </Link>
             <p className="text-body-md text-muted-foreground max-w-xs mb-6">
               La plataforma integral de creación 3D con IA. De idea a objeto real en minutos.
@@ -164,7 +164,7 @@ export function Footer() {
         <div className="pt-8 border-t border-border/50">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
             <p className="text-body-sm text-muted-foreground">
-              © {new Date().getFullYear()} VoxelAI. Hecho con <Heart className="w-4 h-4 text-rose-500" /> para creadores.
+              © {new Date().getFullYear()} Voxel3D. Hecho con <Heart className="w-4 h-4 text-rose-500" /> para creadores.
             </p>
 
             <div className="flex items-center gap-4">

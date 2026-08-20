@@ -48,7 +48,7 @@ export function Header() {
       )}
     >
       <nav className="container-voxel h-full flex items-center justify-between" aria-label="Navegación principal">
-        <Link href="/" className="flex items-center gap-2 shrink-0" aria-label="VoxelAI Inicio">
+        <Link href="/" className="flex items-center gap-2 shrink-0" aria-label="Voxel3D Inicio">
           <div className="relative w-8 h-8">
             <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
               <defs>
@@ -62,7 +62,7 @@ export function Header() {
               <path d="M8 20L16 28L24 20" stroke="url(#logoGradient)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </div>
-          <span className="font-display font-bold text-xl text-foreground">VoxelAI</span>
+          <span className="font-display font-bold text-xl text-foreground">Voxel3D</span>
         </Link>
 
         <div className="hidden md:flex items-center gap-1">

@@ -6,7 +6,7 @@ import { OrbitControls, Environment, ContactShadows, Stage, Html } from '@react-
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import {
-  RotateCcw, Maximize, Minimize, Cube, Eye, EyeOff,
+  RotateCcw, Maximize, Minimize, Eye, EyeOff,
   Download, Box, Settings, Zap, AlertTriangle, CheckCircle
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
@@ -184,7 +184,7 @@ function EmptyState() {
           className="text-center p-4 pointer-events-none"
           style={{ transform: 'translate(-50%, -50%)' }}
         >
-          <Cube className="w-12 h-12 mx-auto text-muted-foreground/30 mb-2" />
+          <Box className="w-12 h-12 mx-auto text-muted-foreground/30 mb-2" />
           <p className="text-sm text-muted-foreground">Sube una imagen para generar el modelo 3D</p>
         </motion.div>
       </Html>
@@ -262,7 +262,7 @@ export function ModelViewer3D({
     <div className={cn('relative', className)} ref={containerRef}>
       <div className="absolute top-3 right-3 z-10 flex gap-1">
         <Button variant="ghost" size="sm" onClick={() => setViewMode('solid')} className={viewMode === 'solid' ? 'bg-primary text-primary-foreground' : ''}>
-          <Cube className="w-4 h-4" />
+          <Box className="w-4 h-4" />
         </Button>
         <Button variant="ghost" size="sm" onClick={() => setViewMode('wireframe')} className={viewMode === 'wireframe' ? 'bg-primary text-primary-foreground' : ''}>
           <Box className="w-4 h-4" />
@@ -320,8 +320,8 @@ export function ModelViewer3D({
               exit={{ opacity: 0, y: -10 }}
               className="flex items-center gap-2 flex-wrap"
             >
-              <Button size="sm" iconLeft={<Zap className="w-4 h-4" }>Generar alta calidad</Button>
-              <Button variant="outline" size="sm" iconLeft={<Cube className="w-4 h-4" }>Descargar preview</Button>
+              <Button size="sm" iconLeft={<Zap className="w-4 h-4" />}>Generar alta calidad</Button>
+              <Button variant="outline" size="sm" iconLeft={<Box className="w-4 h-4" />}>Descargar preview</Button>
             </motion.div>
           ) : null}
         </AnimatePresence>

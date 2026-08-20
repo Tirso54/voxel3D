@@ -8,9 +8,9 @@ import { Button } from '@/components/ui/Button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { cn } from '@/lib/utils';
 import {
-  Image, Cube, Zap, Download, Settings, RotateCcw, Trash2,
+  Image, Zap, Download, Settings, RotateCcw, Trash2,
   History, Globe, Sparkles, CheckCircle, AlertTriangle,
-  ChevronLeft, ChevronRight, Layers, Info, Eye, EyeOff
+  ChevronLeft, ChevronRight, Layers, Box, Info, Eye, EyeOff
 } from 'lucide-react';
 import { CreationModes, creationModes } from '@/components/workspace/CreationModes';
 import { Editor3D } from '@/components/workspace/Editor3D';
@@ -31,8 +31,8 @@ const modeIcons: Record<string, React.ElementType> = {
   relief: Layers,
   lithophane: Image,
   medallion: Sparkles,
-  keychain: Cube,
-  figure3d: Cube,
+  keychain: Box,
+  figure3d: Box,
 };
 
 export default function WorkspacePage() {
@@ -40,8 +40,8 @@ export default function WorkspacePage() {
   const [settings, setSettings] = useState<Record<string, number | boolean>>({});
   const [selectedPrinter, setSelectedPrinter] = useState<string>('bambu-a1-mini');
   const [currentImage, setCurrentImage] = useState<{ file: File; preview: string } | null>(null);
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-  const [modelUrl, setModelUrl] = useState<string | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | undefined>(undefined);
+  const [modelUrl, setModelUrl] = useState<string | undefined>(undefined);
   const [isGenerating, setIsGenerating] = useState(false);
   const [generationProgress, setGenerationProgress] = useState(0);
   const [generationQuality, setGenerationQuality] = useState<'preview' | 'high'>('preview');
@@ -54,7 +54,7 @@ export default function WorkspacePage() {
   useEffect(() => {
     const modeConfig = creationModes.find(m => m.id === activeMode);
     if (modeConfig) {
-      setSettings({ ...modeConfig.defaultSettings });
+      setSettings({ ...modeConfig.defaultSettings } as Record<string, number | boolean>);
     }
   }, [activeMode]);
 
@@ -65,8 +65,8 @@ export default function WorkspacePage() {
     setIsGenerating(true);
     setGenerationProgress(0);
     setModelErrors([]);
-    setModelUrl(null);
-    if (quality === 'preview') setPreviewUrl(null);
+    setModelUrl(undefined);
+    if (quality === 'preview') setPreviewUrl(undefined);
 
     const stages = quality === 'preview' 
       ? [15, 35, 55, 75, 90, 100]
@@ -91,7 +91,7 @@ export default function WorkspacePage() {
       ]);
     } else {
       setModelUrl('/models/final-' + activeMode + '.stl');
-      setPreviewUrl(null);
+      setPreviewUrl(undefined);
       setModelDimensions({ x: 80, y: 80, z: 3 });
       setModelErrors([
         { type: 'Pared delgada', severity: 'warning', message: 'Base en 2 zonas < 0.4mm' },
@@ -101,16 +101,16 @@ export default function WorkspacePage() {
 
   const handleImageSelect = useCallback((file: File, preview: string) => {
     setCurrentImage({ file, preview });
-    setPreviewUrl(null);
-    setModelUrl(null);
+    setPreviewUrl(undefined);
+    setModelUrl(undefined);
     setModelErrors([]);
     setModelDimensions(null);
   }, []);
 
   const handleRemoveImage = useCallback(() => {
     setCurrentImage(null);
-    setPreviewUrl(null);
-    setModelUrl(null);
+    setPreviewUrl(undefined);
+    setModelUrl(undefined);
     setModelErrors([]);
     setModelDimensions(null);
   }, []);
@@ -158,8 +158,7 @@ export default function WorkspacePage() {
                 )}
                 style={{ animationDelay: `${i * 30}ms` }}
               >
-                <span className="relative w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                  <span className="absolute inset-0 bg-gradient-to-br bg-[var(--gradient)] rounded-lg opacity-20" style={{ '--gradient': mode.gradient }} />
+                <span className="relative w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform text-white" style={{ background: mode.gradient.includes('blue') ? 'linear-gradient(135deg, #3b82f6, #06b6d4)' : mode.gradient.includes('amber') ? 'linear-gradient(135deg, #f59e0b, #f97316)' : mode.gradient.includes('purple') ? 'linear-gradient(135deg, #a855f7, #ec4899)' : mode.gradient.includes('green') ? 'linear-gradient(135deg, #22c55e, #14b8a6)' : 'linear-gradient(135deg, #f43f5e, #ef4444)' }}>
                   <mode.icon className="relative w-5 h-5 text-white" />
                   {mode.pro && (
                     <span className="absolute -top-1 -right-1 w-4 h-4 text-amber-500">
@@ -323,7 +322,7 @@ export default function WorkspacePage() {
                       <Button size="sm" className="flex-1" iconLeft={<Zap className="w-4 h-4" />} onClick={() => handleGenerate('high')}>
                         Generar alta calidad
                       </Button>
-                      <Button variant="outline" size="sm" className="flex-1" iconLeft={<Cube className="w-4 h-4" }}>Descargar preview</Button>
+                      <Button variant="outline" size="sm" className="flex-1" iconLeft={<Box className="w-4 h-4" />}>Descargar preview</Button>
                     </>
                   ) : (
                     <Button variant="outline" size="sm" className="w-full" disabled>
@@ -389,7 +388,7 @@ function ProjectCard({ project, viewMode, modeIcons }: {
     processing: 'text-amber-500 bg-amber-500/10',
     failed: 'text-red-500 bg-red-500/10',
   };
-  const ModeIcon = modeIcons[project.mode] || Cube;
+  const ModeIcon = modeIcons[project.mode] || Box;
 
   if (viewMode === 'list') {
     return (

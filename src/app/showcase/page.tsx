@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/Button';
 import { Card, CardContent } from '@/components/ui/Card';
 import { cn } from '@/lib/utils';
 import {
-  Cube, Heart, Share2, Download, Eye, Tag, Filter, ChevronDown,
+  Box, Heart, Share2, Download, Eye, Tag, Filter, ChevronDown,
   Search, Grid, List, Loader2, Sparkles, Star
 } from 'lucide-react';
 
@@ -181,7 +181,7 @@ export default function ShowcasePage() {
                   animate={{ opacity: 1 }}
                   className="text-center py-20"
                 >
-                  <Cube className="w-16 h-16 mx-auto text-muted-foreground/30 mb-4" />
+                  <Box className="w-16 h-16 mx-auto text-muted-foreground/30 mb-4" />
                   <h3 className="text-heading-md font-semibold mb-2">No se encontraron modelos</h3>
                   <p className="text-muted-foreground">Intenta ajustar tus filtros o búsqueda</p>
                 </motion.div>

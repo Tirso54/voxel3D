@@ -1,9 +1,13 @@
 'use client';
 
+import { useState } from 'react';
+import { motion } from 'framer-motion';
 import { Header } from '@/components/ui/Header';
 import { Footer } from '@/components/sections/Footer';
 import { Pricing, Testimonials } from '@/components/sections/Pricing';
 import { CTA } from '@/components/sections/CTA';
+import { cn } from '@/lib/utils';
+import { ChevronDown } from 'lucide-react';
 
 export default function PricingPage() {
   return (

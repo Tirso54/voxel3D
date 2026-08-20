@@ -4,14 +4,14 @@ import { motion } from 'framer-motion';
 import { Card, CardContent } from '@/components/ui/Card';
 import { cn } from '@/lib/utils';
 import {
-  Cube, Image, Sparkles, Scissors, Palette, Layers, Box, Download, Zap,
+  Image, Sparkles, Scissors, Palette, Layers, Box, Download, Zap,
   MousePointer, Wand2, GitBranch, Printer, Truck, Eye, Heart, Share2, Star
 } from 'lucide-react';
 
 const features = [
   {
     id: 'text-to-3d',
-    icon: Cube,
+    icon: Box,
     title: 'Texto a 3D',
     subtitle: 'De palabras a mundos',
     description: 'Describe tu idea en lenguaje natural y genera modelos 3D completos con geometría precisa, proporciones correctas y detalles nítidos. Compatible con prompts complejos y referencias de estilo.',
@@ -111,7 +111,7 @@ const features = [
 ];
 
 const featureIcons = {
-  Cube, Image, Sparkles, Palette, Scissors, Layers, Box, Download, Printer, Truck,
+  Box, Image, Sparkles, Palette, Scissors, Layers, Download, Printer, Truck,
 };
 
 export function Features() {
