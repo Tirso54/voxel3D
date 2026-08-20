@@ -20,7 +20,8 @@ export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
-  const { data: session } = useSession();
+  const sessionResult = useSession();
+  const session = sessionResult?.data ?? null;
 
   useEffect(() => {
     setMounted(true);

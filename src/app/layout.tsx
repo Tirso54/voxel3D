@@ -63,6 +63,8 @@ export const metadata: Metadata = {
   },
 };
 
+export const dynamic = 'force-dynamic';
+
 export const viewport: Viewport = {
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: '#ffffff' },
@@ -86,7 +88,9 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://hitem3dstatic.zaohaowu.net" />
       </head>
       <body className="min-h-screen bg-background font-sans antialiased">
-        {children}
+        <Providers>
+          {children}
+        </Providers>
       </body>
     </html>
   );
