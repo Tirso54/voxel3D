@@ -172,16 +172,12 @@ export function Features() {
 
 function FeatureCard({ feature, index }: { feature: typeof features[0]; index: number }) {
   const Icon = feature.icon;
-  const hoverGradient = `from-${feature.color}-500/10 to-${feature.color}-500/5`;
 
   return (
     <Card variant="hover" padding="lg" className="relative overflow-hidden group h-full">
-      <div className="absolute inset-0 bg-gradient-to-br bg-[var(--hover-gradient)] opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ '--hover-gradient': hoverGradient }} />
-      <div className="absolute top-4 right-4 w-12 h-12 rounded-xl bg-gradient-to-br bg-[var(--gradient)] opacity-10 group-hover:opacity-20 transition-opacity duration-300" style={{ '--gradient': feature.gradient }} />
-      
       <div className="relative z-10">
-        <div className="relative w-12 h-12 rounded-xl bg-gradient-to-br bg-[var(--gradient)] flex items-center justify-center mb-6" style={{ '--gradient': feature.gradient }}>
-          <Icon className="w-6 h-6 text-white" aria-hidden="true" />
+        <div className="relative w-12 h-12 rounded-xl flex items-center justify-center mb-6 text-white" style={{ background: feature.gradient.includes('blue') ? 'linear-gradient(135deg, #3b82f6, #06b6d4)' : feature.gradient.includes('purple') ? 'linear-gradient(135deg, #a855f7, #ec4899)' : feature.gradient.includes('amber') ? 'linear-gradient(135deg, #f59e0b, #f97316)' : feature.gradient.includes('green') ? 'linear-gradient(135deg, #22c55e, #14b8a6)' : feature.gradient.includes('red') ? 'linear-gradient(135deg, #ef4444, #ec4899)' : feature.gradient.includes('cyan') ? 'linear-gradient(135deg, #06b6d4, #3b82f6)' : feature.gradient.includes('indigo') ? 'linear-gradient(135deg, #6366f1, #a855f7)' : feature.gradient.includes('orange') ? 'linear-gradient(135deg, #f97316, #ef4444)' : 'linear-gradient(135deg, #f43f5e, #ec4899)' }}>
+          <Icon className="w-6 h-6" aria-hidden="true" />
         </div>
 
         <div className="mb-4">

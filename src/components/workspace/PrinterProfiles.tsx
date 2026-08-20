@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 import {
   Printer, Check, ChevronDown, ChevronUp, Maximize, Minimize,
   Box, Cpu, Zap, Shield, AlertTriangle, Info, ExternalLink,
-  Wifi, Usb, SdCard, Bluetooth
+  Wifi, Usb, HardDrive, Bluetooth
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 

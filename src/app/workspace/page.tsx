@@ -45,7 +45,7 @@ export default function WorkspacePage() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [generationProgress, setGenerationProgress] = useState(0);
   const [generationQuality, setGenerationQuality] = useState<'preview' | 'high'>('preview');
-  const [modelErrors, setModelErrors] = useState<Array<{ type: string; severity: string; message: string }>>([]);
+  const [modelErrors, setModelErrors] = useState<Array<{ type: 'thin_wall' | 'weak_area' | 'overhang' | 'non_manifold' | 'floating' | 'size'; severity: 'warning' | 'error' | 'info'; message: string }>>([]);
   const [modelDimensions, setModelDimensions] = useState<{ x: number; y: number; z: number } | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
@@ -54,7 +54,7 @@ export default function WorkspacePage() {
   useEffect(() => {
     const modeConfig = creationModes.find(m => m.id === activeMode);
     if (modeConfig) {
-      setSettings({ ...modeConfig.defaultSettings } as Record<string, number | boolean>);
+      setSettings(modeConfig.defaultSettings as unknown as Record<string, number | boolean>);
     }
   }, [activeMode]);
 
@@ -86,15 +86,15 @@ export default function WorkspacePage() {
       setPreviewUrl('/models/preview-' + activeMode + '.glb');
       setModelDimensions({ x: 80, y: 80, z: 3 });
       setModelErrors([
-        { type: 'Pared delgada', severity: 'warning', message: 'Algunas zonas < 0.4mm en el relieve' },
-        { type: 'Voladizo', severity: 'info', message: 'Áreas con > 45° requieren soportes' },
+        { type: 'thin_wall', severity: 'warning', message: 'Algunas zonas < 0.4mm en el relieve' },
+        { type: 'overhang', severity: 'info', message: 'Áreas con > 45° requieren soportes' },
       ]);
     } else {
       setModelUrl('/models/final-' + activeMode + '.stl');
       setPreviewUrl(undefined);
       setModelDimensions({ x: 80, y: 80, z: 3 });
       setModelErrors([
-        { type: 'Pared delgada', severity: 'warning', message: 'Base en 2 zonas < 0.4mm' },
+        { type: 'thin_wall', severity: 'warning', message: 'Base en 2 zonas < 0.4mm' },
       ]);
     }
   }, [currentImage, activeMode, isGenerating]);
@@ -118,7 +118,7 @@ export default function WorkspacePage() {
   const handleResetSettings = useCallback(() => {
     const modeConfig = creationModes.find(m => m.id === activeMode);
     if (modeConfig) {
-      setSettings({ ...modeConfig.defaultSettings });
+      setSettings(modeConfig.defaultSettings as unknown as Record<string, number | boolean>);
     }
   }, [activeMode]);
 
@@ -383,7 +383,7 @@ function ProjectCard({ project, viewMode, modeIcons }: {
   viewMode: 'grid' | 'list';
   modeIcons: Record<string, React.ElementType>;
 }) {
-  const statusColors = {
+  const statusColors: Record<string, string> = {
     completed: 'text-green-500 bg-green-500/10',
     processing: 'text-amber-500 bg-amber-500/10',
     failed: 'text-red-500 bg-red-500/10',

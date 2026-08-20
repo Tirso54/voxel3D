@@ -136,10 +136,10 @@ export function Hero() {
 
 function ModelShowcase() {
   const models = [
-    { name: 'Robot', progress: 100, color: 'from-blue-500 to-cyan-500' },
-    { name: 'Personaje', progress: 100, color: 'from-purple-500 to-pink-500' },
-    { name: 'Arquitectura', progress: 100, color: 'from-amber-500 to-orange-500' },
-    { name: 'Producto', progress: 100, color: 'from-green-500 to-teal-500' },
+    { name: 'Robot', progress: 100, bg: 'linear-gradient(135deg, #3b82f6, #06b6d4)' },
+    { name: 'Personaje', progress: 100, bg: 'linear-gradient(135deg, #a855f7, #ec4899)' },
+    { name: 'Arquitectura', progress: 100, bg: 'linear-gradient(135deg, #f59e0b, #f97316)' },
+    { name: 'Producto', progress: 100, bg: 'linear-gradient(135deg, #22c55e, #14b8a6)' },
   ];
 
   return (
@@ -151,8 +151,8 @@ function ModelShowcase() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8 + i * 0.1, duration: 0.5 }}
-            className="group relative aspect-square rounded-2xl overflow-hidden bg-gradient-to-br bg-[var(--color)] p-1"
-            style={{ '--color': model.color }}
+            className="group relative aspect-square rounded-2xl overflow-hidden p-1"
+            style={{ background: model.bg }}
           >
             <div className="absolute inset-0 bg-card/95 backdrop-blur-sm flex flex-col items-center justify-center p-6">
               <div className="relative w-24 h-24 mb-4">
@@ -166,7 +166,8 @@ function ModelShowcase() {
                 initial={{ width: 0 }}
                 animate={{ width: '100%' }}
                 transition={{ delay: 1 + i * 0.1, duration: 0.8 }}
-                className="h-full bg-gradient-to-r bg-[var(--color)]"
+                className="h-full"
+                style={{ background: model.bg }}
               />
             </div>
           </motion.div>
@@ -174,9 +175,9 @@ function ModelShowcase() {
       </div>
 
       <div className="grid grid-cols-3 gap-4 text-center">
-        <StatCard value="2048³" label="Resolución Máxima" icon="Box" />
-        <StatCard value="8K" label="Texturas PBR" icon="Sparkles" />
-        <StatCard value="<30s" label="Tiempo Promedio" icon="Zap" />
+        <StatCard value="2048³" label="Resolución Máxima" icon={Box} />
+        <StatCard value="8K" label="Texturas PBR" icon={Sparkles} />
+        <StatCard value="<30s" label="Tiempo Promedio" icon={Zap} />
       </div>
     </div>
   );

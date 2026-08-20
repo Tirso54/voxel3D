@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, Suspense } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { OrbitControls, Environment, ContactShadows, Stage, Html } from '@react-three/drei';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -10,6 +10,9 @@ import {
   Download, Box, Settings, Zap, AlertTriangle, CheckCircle
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
+import * as THREE from 'three';
+import { useLoader } from '@react-three/fiber';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 interface ModelViewer3DProps {
   modelUrl?: string;
@@ -29,11 +32,10 @@ const ModelScene = ({ modelUrl, previewUrl, errors, showGrid, autoRotate }: {
   showGrid?: boolean;
   autoRotate?: boolean;
 }) => {
-  const { scene, camera, gl } = useThree();
   const [loaded, setLoaded] = useState(false);
   const groupRef = useRef<THREE.Group>(null);
 
-  useFrame((state, delta) => {
+  useFrame((_, delta) => {
     if (autoRotate && groupRef.current && loaded) {
       groupRef.current.rotation.y += delta * 0.2;
     }
@@ -52,17 +54,10 @@ const ModelScene = ({ modelUrl, previewUrl, errors, showGrid, autoRotate }: {
       <Environment
         preset="studio"
         background={false}
-        ground={showGrid ? 'projected' : false}
       />
-      
+
       {showGrid && (
-        <Stage
-          width={10}
-          height={10}
-          segments={20}
-          contactShadow={false}
-          opacity={0.3}
-        />
+        <Stage />
       )}
 
       <ContactShadows
@@ -91,28 +86,29 @@ const ModelScene = ({ modelUrl, previewUrl, errors, showGrid, autoRotate }: {
 
 function ModelLoader({ url, onLoad }: { url: string; onLoad: () => void }) {
   const gltf = useLoader(GLTFLoader, url);
-  
+
   useEffect(() => {
     if (gltf) {
       gltf.scene.traverse((child) => {
-        if (child.isMesh) {
-          child.castShadow = true;
-          child.receiveShadow = true;
-          if (child.material) {
-            child.material.metalness = 0.1;
-            child.material.roughness = 0.8;
+        if ((child as THREE.Mesh).isMesh) {
+          const mesh = child as THREE.Mesh;
+          mesh.castShadow = true;
+          mesh.receiveShadow = true;
+          if (mesh.material && 'metalness' in mesh.material) {
+            (mesh.material as THREE.MeshStandardMaterial).metalness = 0.1;
+            (mesh.material as THREE.MeshStandardMaterial).roughness = 0.8;
           }
         }
       });
-      
+
       const box = new THREE.Box3().setFromObject(gltf.scene);
       const center = box.getCenter(new THREE.Vector3());
       const size = box.getSize(new THREE.Vector3());
       const maxDim = Math.max(size.x, size.y, size.z);
-      
+
       gltf.scene.position.sub(center);
       gltf.scene.scale.multiplyScalar(2 / maxDim);
-      
+
       onLoad();
     }
   }, [gltf]);
@@ -123,11 +119,7 @@ function ModelLoader({ url, onLoad }: { url: string; onLoad: () => void }) {
 function LoadingPlaceholder() {
   return (
     <group>
-      <motion.mesh
-        initial={{ scale: 0.5 }}
-        animate={{ scale: 1 }}
-        position={[0, 0.5, 0]}
-      >
+      <mesh position={[0, 0.5, 0]}>
         <boxGeometry args={[1, 1, 1]} />
         <meshStandardMaterial
           color="#e4e4e7"
@@ -137,16 +129,11 @@ function LoadingPlaceholder() {
           transparent
           opacity={0.3}
         />
-      </motion.mesh>
-      <motion.mesh
-        initial={{ scale: 0.5 }}
-        animate={{ scale: 1 }}
-        transition={{ delay: 0.1 }}
-        position={[0, -0.5, 0]}
-      >
+      </mesh>
+      <mesh position={[0, -0.5, 0]}>
         <boxGeometry args={[1.2, 0.2, 1.2]} />
         <meshStandardMaterial color="#71717a" metalness={0.1} roughness={0.8} />
-      </motion.mesh>
+      </mesh>
     </group>
   );
 }
@@ -171,22 +158,15 @@ function EmptyState() {
       </mesh>
       <Html
         position={[0, -1.2, 0]}
-        fullscreen
         center
         transform
-        sprites
+        sprite
         distanceFactor={5}
-        zIndexRange={[100, 100]}
       >
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center p-4 pointer-events-none"
-          style={{ transform: 'translate(-50%, -50%)' }}
-        >
+        <div className="text-center p-4 pointer-events-none" style={{ transform: 'translate(-50%, -50%)' }}>
           <Box className="w-12 h-12 mx-auto text-muted-foreground/30 mb-2" />
           <p className="text-sm text-muted-foreground">Sube una imagen para generar el modelo 3D</p>
-        </motion.div>
+        </div>
       </Html>
     </group>
   );
@@ -203,15 +183,12 @@ function ErrorIndicators({ errors }: { errors: Array<{ type: string; severity: s
             (Math.random() - 0.5) * 2 + 1,
             (Math.random() - 0.5) * 2
           ]}
-          fullscreen
           center
           transform
-          sprites
+          sprite
           distanceFactor={3}
         >
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
+          <div
             className={cn(
               'px-2 py-1 rounded-full text-xs font-medium pointer-events-none',
               error.severity === 'error' && 'bg-red-500 text-white',
@@ -219,19 +196,13 @@ function ErrorIndicators({ errors }: { errors: Array<{ type: string; severity: s
               error.severity === 'info' && 'bg-blue-500 text-white'
             )}
           >
-            ⚠ {error.type}
-          </motion.div>
+            {error.type}
+          </div>
         </Html>
       ))}
     </group>
   );
 }
-
-import { Suspense, useLoader } from '@react-three/fiber';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import * as THREE from 'three';
-import { primitive } from '@react-three/fiber';
-import { cn } from '@/lib/utils';
 
 export function ModelViewer3D({
   modelUrl,
@@ -289,7 +260,8 @@ export function ModelViewer3D({
             enableRotate={true}
             minDistance={1.5}
             maxDistance={10}
-            polarAngle={[0, Math.PI / 2]}
+            minPolarAngle={0}
+            maxPolarAngle={Math.PI / 2}
           />
         </Canvas>
       </div>
@@ -358,5 +330,3 @@ export function ModelViewer3D({
     </div>
   );
 }
-
-import { useRef, useEffect, useState } from 'react';

@@ -35,7 +35,7 @@ export function Card({
     <Component
       whileHover={hoverScale ? { scale: 1.02, transition: { duration: 0.2 } } : undefined}
       className={cn(variants[variant], paddings[padding], className)}
-      {...props}
+      {...(props as any)}
     >
       {children}
     </Component>

@@ -28,7 +28,7 @@ const plans = [
       { name: 'Soporte prioritario', included: false },
     ],
     cta: 'Empezar Gratis',
-    variant: 'outline',
+    variant: 'outline' as const,
     popular: false,
   },
   {
@@ -52,7 +52,7 @@ const plans = [
       { name: 'Soporte prioritario', included: true },
     ],
     cta: 'Comenzar Pro',
-    variant: 'primary',
+    variant: 'primary' as const,
     popular: true,
     badge: 'Más Popular',
   },
@@ -77,7 +77,7 @@ const plans = [
       { name: 'Gestor de cuenta dedicado', included: true },
     ],
     cta: 'Contactar Ventas',
-    variant: 'outline',
+    variant: 'outline' as const,
     popular: false,
   },
 ];
@@ -212,32 +212,28 @@ function PricingCard({ plan }: { plan: typeof plans[0] }) {
           variant={plan.variant}
           className="w-full"
           size="lg"
-          asChild
         >
-          <a href={plan.name === 'Equipo' ? '/contact' : '/auth/signup'}>
-            {plan.cta}
-            <ArrowRight className="w-4 h-4" />
-          </a>
+          {plan.cta}
+          <ArrowRight className="w-4 h-4" />
         </Button>
       </div>
     </Card>
   );
 }
 
-export function Testimonials() {
-  const testimonials = [
-    {
-      quote: "Voxel3D cambió completamente mi flujo de trabajo. De concepto a modelo imprimible en minutos, no horas. La calidad 2048³ es increíble.",
-      author: "Sarah Chen",
-      role: "Diseñadora Industrial",
-      company: "Formlabs",
-      avatar: "/avatars/sarah.jpg",
-      rating: 5,
-    },
-    {
-      quote: "La división automática con conectores me ahorra horas de CAD manual. Ahora imprimo modelos complejos en mi Bambu Lab sin dolor de cabeza.",
-      author: "Marcus Johnson",
-      role: "Maker & YouTuber",
+const testimonials = [
+  {
+    quote: "Voxel3D cambió completamente mi flujo de trabajo. De concepto a modelo imprimible en minutos, no horas. La calidad 2048³ es increíble.",
+    author: "Sarah Chen",
+    role: "Diseñadora Industrial",
+    company: "Formlabs",
+    avatar: "/avatars/sarah.jpg",
+    rating: 5,
+  },
+  {
+    quote: "La división automática con conectores me ahorra horas de CAD manual. Ahora imprimo modelos complejos en mi Bambu Lab sin dolor de cabeza.",
+    author: "Marcus Johnson",
+    role: "Maker & YouTuber",
       company: "PrintItRight",
       avatar: "/avatars/marcus.jpg",
       rating: 5,
@@ -260,6 +256,7 @@ export function Testimonials() {
     },
   ];
 
+export function Testimonials() {
   return (
     <section className="section bg-background relative" aria-labelledby="testimonials-heading">
       <div className="container-voxel relative">
@@ -304,8 +301,8 @@ export function Testimonials() {
             <img src="/logos/reuters.svg" alt="Reuters" className="h-8 opacity-50 hover:opacity-100 transition-opacity" />
             <img src="/logos/wsj.svg" alt="WSJ" className="h-8 opacity-50 hover:opacity-100 transition-opacity" />
           </div>
-          <Button variant="outline" size="lg" asChild>
-            <a href="/showcase">Ver Más Casos de Éxito →</a>
+          <Button variant="outline" size="lg">
+            Ver Más Casos de Éxito →
           </Button>
         </motion.div>
       </div>
@@ -324,7 +321,7 @@ function TestimonialCard({ testimonial }: { testimonial: typeof testimonials[0] 
       <p className="text-body-md text-foreground mb-6 leading-relaxed">"{testimonial.quote}"</p>
       <div className="flex items-center gap-3 pt-4 border-t border-border/50">
         <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-primary-foreground font-medium">
-          {testimonial.author.split(' ').map(n => n[0]).join('')}
+          {testimonial.author.split(' ').map((n: string) => n[0]).join('')}
         </div>
         <div>
           <div className="font-medium text-foreground">{testimonial.author}</div>

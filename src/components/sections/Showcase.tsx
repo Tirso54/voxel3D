@@ -17,7 +17,7 @@ const workflowSteps = [
     description: 'Escribe un prompt, sube una imagen o elige una plantilla',
     icon: MousePointer,
     tools: ['Texto a Imagen', 'Subir Imagen', 'Plantillas'],
-    color: 'from-blue-500 to-cyan-500',
+    bg: 'linear-gradient(135deg, #3b82f6, #06b6d4)',
   },
   {
     id: 2,
@@ -25,7 +25,7 @@ const workflowSteps = [
     description: 'IA crea modelo 3D con geometría precisa y detalles nítidos',
     icon: Box,
     tools: ['Texto a 3D', 'Imagen a 3D', 'Relieve 3D'],
-    color: 'from-purple-500 to-pink-500',
+    bg: 'linear-gradient(135deg, #a855f7, #ec4899)',
   },
   {
     id: 3,
@@ -33,7 +33,7 @@ const workflowSteps = [
     description: 'Aplica materiales PBR 8K o genera texturas estilizadas',
     icon: Palette,
     tools: ['Texturas PBR', 'Estilizado', 'Multi-material'],
-    color: 'from-green-500 to-teal-500',
+    bg: 'linear-gradient(135deg, #22c55e, #14b8a6)',
   },
   {
     id: 4,
@@ -41,7 +41,7 @@ const workflowSteps = [
     description: 'Divide, colorea, repara y envía a slicer o servicio de impresión',
     icon: Printer,
     tools: ['División', 'Multicolor', 'Reparación', 'Servicio Impresión'],
-    color: 'from-orange-500 to-red-500',
+    bg: 'linear-gradient(135deg, #f97316, #ef4444)',
   },
 ];
 
@@ -221,8 +221,8 @@ export function Workflow() {
           transition={{ delay: 0.8, duration: 0.5 }}
           className="mt-16 text-center"
         >
-          <Button size="lg" iconRight={<ArrowRight className="w-5 h-5" />} className="gap-2" asChild>
-            <a href="/workspace">Probar el Flujo Completo Gratis</a>
+          <Button size="lg" iconRight={<ArrowRight className="w-5 h-5" />} className="gap-2">
+            Probar el Flujo Completo Gratis
           </Button>
         </motion.div>
       </div>
@@ -236,7 +236,7 @@ function WorkflowStep({ step, index, isLast }: { step: typeof workflowSteps[0]; 
   return (
     <div className="relative">
       <Card variant="hover" padding="lg" className="h-full relative z-10">
-        <div className="relative w-14 h-14 rounded-xl bg-gradient-to-br bg-[var(--color)] flex items-center justify-center mb-6 mx-auto" style={{ '--color': step.color }}>
+        <div className="relative w-14 h-14 rounded-xl flex items-center justify-center mb-6 mx-auto text-white" style={{ background: step.bg }}>
           <Icon className="w-7 h-7 text-white" aria-hidden="true" />
           <span className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-primary text-primary-foreground text-xs font-bold flex items-center justify-center">
             {step.id}

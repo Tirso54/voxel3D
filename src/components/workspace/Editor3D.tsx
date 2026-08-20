@@ -4,7 +4,7 @@ import { useState, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import {
-  Sliders, Minimize, Maximize, Reset, Eye, EyeOff,
+  Sliders, Minimize, Maximize, RotateCcw, Eye, EyeOff,
   Download, Box, Zap, AlertTriangle, CheckCircle, Info
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
@@ -120,7 +120,7 @@ export function Editor3D({
   const handleReset = useCallback(() => {
     const modeConfig = creationModes.find(m => m.id === mode);
     if (modeConfig) {
-      onSettingsChange({ ...modeConfig.defaultSettings });
+      onSettingsChange(modeConfig.defaultSettings as unknown as Record<string, number | boolean>);
     }
   }, [mode, onSettingsChange]);
 
@@ -175,7 +175,7 @@ export function Editor3D({
             </div>
 
             <div className="flex items-center gap-2 pt-2 border-t border-border/50">
-              <Button variant="outline" size="sm" iconLeft={<Reset className="w-4 h-4" />} onClick={handleReset}>
+              <Button variant="outline" size="sm" iconLeft={<RotateCcw className="w-4 h-4" />} onClick={handleReset}>
                 Restablecer
               </Button>
               <div className="flex-1" />
